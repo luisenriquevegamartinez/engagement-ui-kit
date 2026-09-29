@@ -57,6 +57,54 @@ primitive says what a value _is_ (`--cw-blue-600`); it never says what it is _fo
 processing state. It is real code of the kind that accumulates in a component library before
 anyone owns it, and your brief asks you to do something about it. Read it before you judge it.
 
+## The kit after this exercise
+
+The decisions behind this section are in [DECISIONS.md](DECISIONS.md), and the badge migration
+is in [ADOPTION.md](ADOPTION.md).
+
+### Tokens and theming
+
+- Components use only semantic tokens (`--cw-<category>-<role>[-<variant>]`, e.g.
+  `--cw-color-text-muted` or `--cw-border-width-default`), never primitives or raw colours.
+- A semantic token points directly at a primitive, never at another semantic token, so a theme
+  applied to a subtree resolves predictably.
+- A theme is a block that re-declares semantic tokens.
+  [`_theme-high-contrast.scss`](src/lib/tokens/_theme-high-contrast.scss) is the example.
+
+To apply a theme, set `data-cw-theme="high-contrast"` (or `"default"`) on `<html>` or on any
+subtree. With no attribute, the high-contrast theme follows the user's `prefers-contrast: more`
+preference.
+
+### `cw-select`
+
+```html
+<cw-select label="Reviewer" placeholder="Select a reviewer"
+           [options]="options" [formControl]="reviewerId" />
+```
+
+`options` is a `SelectOption<T>[]`: `{ value, label, description?, disabled? }`. The component
+works with reactive and template-driven forms.
+
+| Key | List closed | List open |
+| --- | --- | --- |
+| ↓ / Enter / Space | Open | ↓ next option; Enter/Space choose the active option |
+| ↑ / Home / End | Open on first / first / last | Move to previous / first / last |
+| PageUp / PageDown | — | Move 10 options |
+| Typing | Open and jump to a match | Jump to a match (repeat a letter to cycle) |
+| Escape | — | Close without changing the value |
+| Tab | Move on | Choose the active option and move on |
+
+Unavailable options can be reached and are announced as unavailable, but they cannot be chosen.
+
+### `cw-status-badge` 2.0
+
+```html
+<cw-status-badge label="Ready" tone="success" size="sm" />
+```
+
+`tone` is one of `neutral | info | success | warning | danger`, and `size` is one of
+`sm | md | lg`. Both have defaults (`neutral` and `md`).
+
 ## The workbench
 
 `src/app/` is a consumer of the kit, not part of it. It exists so components can be built,

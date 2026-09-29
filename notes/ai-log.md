@@ -68,3 +68,11 @@ produced, what I changed or rejected, and how I verified it.
   a CSS border triangle, and forced colors repaints the transparent borders, so it rendered as a
   solid bar. It was replaced with an SVG using `fill="currentColor"`. The badge dot disappears in
   forced colors; that is acceptable because it is decorative and the label carries the meaning.
+
+### Phase 5: documentation
+
+- The AI drafted DECISIONS, ADOPTION, SUBMISSION and the README kit section. [Record what you
+  rewrote.]
+- The draft claimed "breaking any safeguard fails a test", but only one of the three had been
+  mutation-checked. The other two were checked before keeping the claim: allowing a disabled
+  option to be committed, and making hover move the active option. Each one fails a test.
