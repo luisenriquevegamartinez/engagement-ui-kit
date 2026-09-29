@@ -4,3 +4,5 @@
 
 @use 'primitives';
 @use 'semantic';
+// Themes come after the default so they win at equal specificity.
+@use 'theme-high-contrast';

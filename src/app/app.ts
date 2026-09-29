@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, DOCUMENT, effect, inject, signal } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { Select, SelectOption, StatusBadge, StatusBadgeTone } from '../lib/public-api';
@@ -23,6 +23,27 @@ import {
 })
 export class App {
   protected readonly engagements = ENGAGEMENTS;
+
+  /** `system` leaves the attribute off, so the kit follows `prefers-contrast`. */
+  protected readonly theme = signal<'system' | 'default' | 'high-contrast'>('system');
+
+  protected readonly themeOptions = [
+    { value: 'system', label: 'Follow system' },
+    { value: 'default', label: 'Default' },
+    { value: 'high-contrast', label: 'High contrast' },
+  ] as const;
+
+  constructor() {
+    const root = inject(DOCUMENT).documentElement;
+    effect(() => {
+      const theme = this.theme();
+      if (theme === 'system') {
+        root.removeAttribute('data-cw-theme');
+      } else {
+        root.setAttribute('data-cw-theme', theme);
+      }
+    });
+  }
 
   /** The domain-to-kit mapping lives in the consumer; the kit only knows tones. */
   protected readonly statusBadges: Record<EngagementStatus, { label: string; tone: StatusBadgeTone }> = {

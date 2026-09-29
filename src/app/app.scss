@@ -27,6 +27,22 @@
   margin-block: var(--cw-space-1) 0;
 }
 
+.wb-theme {
+  border: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--cw-space-3);
+  margin: var(--cw-space-3) 0 0;
+  padding: 0;
+}
+
+.wb-theme legend {
+  float: left;
+  font-weight: var(--cw-font-weight-medium);
+  margin-inline-end: var(--cw-space-2);
+  padding: 0;
+}
+
 .wb-main {
   padding-block: var(--cw-space-5) var(--cw-space-7);
 }

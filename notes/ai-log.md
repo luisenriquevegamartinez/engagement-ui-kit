@@ -54,3 +54,17 @@ produced, what I changed or rejected, and how I verified it.
 - Mutation check: putting `aria-hidden` back on the label fails the badge test.
 - In Chrome's accessibility snapshot, an engagement row now reads "... 4 pending Ready". In v1
   the status was not announced at all.
+
+### Phase 4: high-contrast theme
+
+- Adding the theme changed zero component files: one new token file plus 2 lines in
+  `tokens.scss`. That is the evidence that the semantic layer makes a second theme cheap.
+- Every high-contrast pair meets AAA (>= 7:1). The hand estimates in the plan (amber 7.6,
+  green 10.4, red 10.7, blue 11.7) were confirmed by the script.
+- Checked in Chrome: the toggle; `prefers-contrast: more` applying the theme automatically; an
+  explicit "default" winning over the OS preference; the active option keeping its outline under
+  `forced-colors`.
+- The forced-colors screenshot exposed a real bug in the Phase 2 code. The chevron was drawn as
+  a CSS border triangle, and forced colors repaints the transparent borders, so it rendered as a
+  solid bar. It was replaced with an SVG using `fill="currentColor"`. The badge dot disappears in
+  forced colors; that is acceptable because it is decorative and the label carries the meaning.

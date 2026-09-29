@@ -3,6 +3,22 @@
   <p class="wb-lede">
     A consumer of the kit in <code>src/lib</code>. Build, demonstrate and review components here.
   </p>
+
+  <fieldset class="wb-theme">
+    <legend>Theme</legend>
+    @for (option of themeOptions; track option.value) {
+      <label>
+        <input
+          type="radio"
+          name="theme"
+          [value]="option.value"
+          [checked]="theme() === option.value"
+          (change)="theme.set(option.value)"
+        />
+        {{ option.label }}
+      </label>
+    }
+  </fieldset>
 </header>
 
 <main class="wb-main">

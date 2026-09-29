@@ -42,10 +42,11 @@
   color: var(--cw-color-text-muted);
 }
 
+/* SVG, not a border triangle: forced-colors mode repaints transparent borders. */
 .chevron {
-  border-block-start: 0.35em solid currentColor;
-  border-inline: 0.3em solid transparent;
+  block-size: 0.4em;
   flex: none;
+  inline-size: 0.7em;
 }
 
 .listbox {
