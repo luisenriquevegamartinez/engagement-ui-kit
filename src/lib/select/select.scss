@@ -1,0 +1,118 @@
+:host {
+  color: var(--cw-color-text-default);
+  display: inline-flex;
+  flex-direction: column;
+  font-family: var(--cw-font-family-base);
+  font-size: var(--cw-font-size-body);
+  gap: var(--cw-space-gap-xs);
+  line-height: var(--cw-line-height-body);
+  min-inline-size: 16rem;
+  position: relative;
+}
+
+.label {
+  font-size: var(--cw-font-size-label);
+  font-weight: var(--cw-font-weight-label);
+}
+
+.trigger {
+  align-items: center;
+  background: var(--cw-color-bg-surface);
+  border: var(--cw-border-width-default) solid var(--cw-color-border-control);
+  border-radius: var(--cw-radius-control);
+  cursor: pointer;
+  display: flex;
+  gap: var(--cw-space-gap-sm);
+  justify-content: space-between;
+  padding: var(--cw-space-control-block) var(--cw-space-control-inline);
+}
+
+.trigger:focus-visible {
+  outline: var(--cw-focus-ring-width) solid var(--cw-color-focus-ring);
+  outline-offset: var(--cw-focus-ring-offset);
+}
+
+.trigger[aria-disabled='true'] {
+  background: var(--cw-color-bg-disabled);
+  color: var(--cw-color-text-disabled);
+  cursor: not-allowed;
+}
+
+.placeholder {
+  color: var(--cw-color-text-muted);
+}
+
+.chevron {
+  border-block-start: 0.35em solid currentColor;
+  border-inline: 0.3em solid transparent;
+  flex: none;
+}
+
+.listbox {
+  background: var(--cw-color-bg-raised);
+  border: var(--cw-border-width-default) solid var(--cw-color-border-subtle);
+  border-radius: var(--cw-radius-control);
+  box-shadow: var(--cw-shadow-popup);
+  inset-block-start: calc(100% + var(--cw-space-gap-xs));
+  inset-inline: 0;
+  list-style: none;
+  margin: 0;
+  max-block-size: 16rem;
+  overflow-y: auto;
+  padding: var(--cw-space-gap-xs) 0;
+  position: absolute;
+  z-index: var(--cw-z-popup);
+}
+
+.option {
+  cursor: pointer;
+  display: flex;
+  gap: var(--cw-space-gap-sm);
+  padding: var(--cw-space-gap-xs) var(--cw-space-control-inline);
+}
+
+.option:hover {
+  background: var(--cw-color-bg-hover);
+}
+
+/* Outline, not only background: forced-colors mode drops backgrounds. */
+.option.active {
+  background: var(--cw-color-bg-active);
+  outline: var(--cw-border-width-emphasis) solid var(--cw-color-border-active);
+  outline-offset: calc(-1 * var(--cw-border-width-emphasis));
+}
+
+.check {
+  color: var(--cw-color-text-accent);
+  visibility: hidden;
+}
+
+.option[aria-selected='true'] {
+  font-weight: var(--cw-font-weight-strong);
+}
+
+.option[aria-selected='true'] .check {
+  visibility: visible;
+}
+
+.option[aria-disabled='true'] {
+  color: var(--cw-color-text-disabled);
+  cursor: not-allowed;
+}
+
+.description {
+  color: var(--cw-color-text-muted);
+  display: block;
+  font-size: var(--cw-font-size-label);
+  font-weight: var(--cw-font-weight-body);
+}
+
+@media (forced-colors: active) {
+  .option.active {
+    outline-color: Highlight;
+  }
+
+  .option[aria-disabled='true'] {
+    color: GrayText;
+  }
+}

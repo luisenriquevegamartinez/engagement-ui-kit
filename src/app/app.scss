@@ -97,14 +97,11 @@
   white-space: nowrap;
 }
 
-.wb-placeholder {
-  border: var(--cw-border-width-default) dashed var(--cw-color-border-control);
-  border-radius: var(--cw-radius-md);
-  padding: var(--cw-space-4);
-}
-
-.wb-placeholder p {
-  margin: 0;
+.wb-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--cw-space-2);
+  margin-block-start: var(--cw-space-3);
 }
 
 .wb-state {

@@ -55,12 +55,19 @@
       form-integrated component can be dropped straight in.
     </p>
 
-    <div class="wb-placeholder">
-      <p>No reviewer picker yet.</p>
-      <p class="wb-note">
-        {{ reviewers.length }} reviewers and {{ changeGroups.length }} change groups are available
-        in <code>src/app/data/engagement-fixtures.ts</code>.
-      </p>
+    <cw-select
+      label="Reviewer"
+      placeholder="Select a reviewer"
+      [options]="reviewerOptions"
+      [formControl]="reviewerId"
+    />
+
+    <div class="wb-actions">
+      <button type="button" (click)="toggleReviewerDisabled()">
+        {{ reviewerId.disabled ? 'Enable' : 'Disable' }} control
+      </button>
+      <button type="button" (click)="assignFirstAvailableReviewer()">Set value from code</button>
+      <button type="button" (click)="reviewerId.reset()">Reset</button>
     </div>
 
     <dl class="wb-state">
@@ -70,6 +77,36 @@
       <dd>{{ reviewerId.touched }}</dd>
       <dt>dirty</dt>
       <dd>{{ reviewerId.dirty }}</dd>
+    </dl>
+  </section>
+
+  <section class="wb-section">
+    <h2>Select: reuse and scale</h2>
+    <p class="wb-note">
+      The same component for data that is not reviewers (template-driven <code>ngModel</code>), and
+      with 500 options, every seventh unavailable.
+    </p>
+
+    <div class="wb-specimens">
+      <cw-select
+        label="Change group"
+        placeholder="Any group"
+        [options]="changeGroupOptions"
+        [(ngModel)]="changeGroup"
+      />
+      <cw-select
+        label="Cost centre"
+        placeholder="Select a cost centre"
+        [options]="costCentreOptions"
+        [formControl]="costCentre"
+      />
+    </div>
+
+    <dl class="wb-state">
+      <dt>change group</dt>
+      <dd>{{ changeGroup ?? '—' }}</dd>
+      <dt>cost centre</dt>
+      <dd>{{ costCentre.value ?? '—' }}</dd>
     </dl>
   </section>
 </main>

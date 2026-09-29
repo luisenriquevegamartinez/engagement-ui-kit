@@ -5,4 +5,6 @@
  * here. Consumers should never need to reach into a component folder directly.
  */
 
+export { Select } from './select/select';
+export type { SelectOption } from './select/select-option';
 export { StatusBadge } from './status-badge/status-badge';

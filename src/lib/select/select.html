@@ -1,0 +1,54 @@
+<span class="label" [id]="labelId" (click)="focusTrigger()">{{ label() }}</span>
+
+<div
+  #trigger
+  class="trigger"
+  role="combobox"
+  [attr.tabindex]="disabled() ? -1 : 0"
+  [attr.aria-labelledby]="labelId"
+  [attr.aria-expanded]="open()"
+  [attr.aria-controls]="open() ? listboxId : null"
+  [attr.aria-activedescendant]="activeOptionId()"
+  [attr.aria-disabled]="disabled() || null"
+  (click)="onTriggerClick()"
+  (keydown)="onKeydown($event)"
+  (blur)="onBlur()"
+>
+  <span class="value" [class.placeholder]="!selectedOption()">
+    {{ selectedOption()?.label ?? placeholder() }}
+  </span>
+  <span class="chevron" aria-hidden="true"></span>
+</div>
+
+@if (open()) {
+  <!-- mousedown is prevented so clicking an option never moves focus off the trigger -->
+  <ul
+    #listbox
+    class="listbox"
+    role="listbox"
+    tabindex="-1"
+    [id]="listboxId"
+    [attr.aria-labelledby]="labelId"
+    (mousedown)="$event.preventDefault()"
+  >
+    @for (option of options(); track $index) {
+      <li
+        class="option"
+        role="option"
+        [id]="optionId($index)"
+        [class.active]="$index === activeIndex()"
+        [attr.aria-selected]="$index === selectedIndex()"
+        [attr.aria-disabled]="option.disabled || null"
+        (click)="onOptionClick($index)"
+      >
+        <span class="check" aria-hidden="true">✓</span>
+        <span class="option-text">
+          {{ option.label }}
+          @if (option.description) {
+            <span class="description">{{ option.description }}</span>
+          }
+        </span>
+      </li>
+    }
+  </ul>
+}
