@@ -1,8 +1,13 @@
 import { Component } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { Select, SelectOption, StatusBadge } from '../lib/public-api';
-import { CHANGE_GROUPS, ENGAGEMENTS, REVIEWERS } from './data/engagement-fixtures';
+import { Select, SelectOption, StatusBadge, StatusBadgeTone } from '../lib/public-api';
+import {
+  CHANGE_GROUPS,
+  ENGAGEMENTS,
+  EngagementStatus,
+  REVIEWERS,
+} from './data/engagement-fixtures';
 
 /**
  * The workbench: a consumer of the kit in `src/lib`.
@@ -18,6 +23,13 @@ import { CHANGE_GROUPS, ENGAGEMENTS, REVIEWERS } from './data/engagement-fixture
 })
 export class App {
   protected readonly engagements = ENGAGEMENTS;
+
+  /** The domain-to-kit mapping lives in the consumer; the kit only knows tones. */
+  protected readonly statusBadges: Record<EngagementStatus, { label: string; tone: StatusBadgeTone }> = {
+    READY: { label: 'Ready', tone: 'success' },
+    PROCESSING: { label: 'Processing', tone: 'info' },
+    ERROR: { label: 'Error', tone: 'danger' },
+  };
 
   /** A form control for the reviewer filter, ready for a form-integrated control. */
   protected readonly reviewerId = new FormControl<string | null>(null);

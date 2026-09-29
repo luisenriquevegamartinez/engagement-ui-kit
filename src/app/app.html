@@ -8,18 +8,19 @@
 <main class="wb-main">
   <section class="wb-section">
     <h2>Status badge</h2>
-    <p class="wb-note">The supplied component, in the states the engagement list needs.</p>
+    <p class="wb-note">Every tone, then the three sizes.</p>
 
     <div class="wb-specimens">
-      <cw-status-badge label="Ready" [isReady]="true"></cw-status-badge>
-      <cw-status-badge
-        label="Processing"
-        [isProcessing]="true"
-        tooltip="The server is still preparing this engagement"
-      ></cw-status-badge>
-      <cw-status-badge label="Error" [isError]="true"></cw-status-badge>
-      <cw-status-badge label="Ready" [isReady]="true" [isSmall]="true"></cw-status-badge>
-      <cw-status-badge label="Ready" [isReady]="true" [isLarge]="true"></cw-status-badge>
+      <cw-status-badge label="Draft" />
+      <cw-status-badge label="Processing" tone="info" />
+      <cw-status-badge label="Ready" tone="success" />
+      <cw-status-badge label="Needs attention" tone="warning" />
+      <cw-status-badge label="Error" tone="danger" />
+    </div>
+    <div class="wb-specimens">
+      <cw-status-badge label="Ready" tone="success" size="sm" />
+      <cw-status-badge label="Ready" tone="success" />
+      <cw-status-badge label="Ready" tone="success" size="lg" />
     </div>
   </section>
 
@@ -38,11 +39,9 @@
           <span class="engagement-pending"> {{ engagement.pendingChangeCount }} pending </span>
 
           <cw-status-badge
-            [label]="engagement.status"
-            [isReady]="engagement.status === 'READY'"
-            [isProcessing]="engagement.status === 'PROCESSING'"
-            [isError]="engagement.status === 'ERROR'"
-          ></cw-status-badge>
+            [label]="statusBadges[engagement.status].label"
+            [tone]="statusBadges[engagement.status].tone"
+          />
         </li>
       }
     </ul>

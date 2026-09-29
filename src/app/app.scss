@@ -57,6 +57,10 @@
   gap: var(--cw-space-3);
 }
 
+.wb-specimens + .wb-specimens {
+  margin-block-start: var(--cw-space-3);
+}
+
 .engagement-list {
   display: flex;
   flex-direction: column;

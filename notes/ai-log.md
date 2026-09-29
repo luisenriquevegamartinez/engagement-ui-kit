@@ -43,3 +43,14 @@ produced, what I changed or rejected, and how I verified it.
   Escape, Tab committing the active option, typeahead cycling, End scrolling through 500
   options, and click keeping focus. The first run seemed to lag one step. That was the driver
   reading the DOM before zoneless change detection rendered, not a component bug.
+
+### Phase 3: cw-status-badge
+
+- Built against the old call sites on purpose, to test the ADOPTION claim that strict templates
+  catch the migration. They catch every removed *binding* (NG8002 for isReady, isProcessing,
+  isError, isSmall, isLarge) but **not** `tooltip="..."`. A static attribute silently becomes a
+  plain HTML attribute. So the compiler is only part of the migration checklist; static
+  attributes need a lint rule or codemod.
+- Mutation check: putting `aria-hidden` back on the label fails the badge test.
+- In Chrome's accessibility snapshot, an engagement row now reads "... 4 pending Ready". In v1
+  the status was not announced at all.
