@@ -1,4 +1,9 @@
-/* Workbench layout only. The workbench is a consumer, not part of the kit. */
+/*
+ * Workbench layout only. The workbench is a consumer, not part of the kit.
+ * Colours and border widths come from semantic tokens so the workbench chrome
+ * follows the active theme; spacing and type sizes use primitives directly,
+ * which is fine for a consumer's own layout.
+ */
 
 .wb-header,
 .wb-main {
@@ -8,7 +13,7 @@
 }
 
 .wb-header {
-  border-bottom: 1px solid var(--cw-gray-200);
+  border-bottom: var(--cw-border-width-default) solid var(--cw-color-border-subtle);
   padding-block: var(--cw-space-5);
 }
 
@@ -18,7 +23,7 @@
 }
 
 .wb-lede {
-  color: var(--cw-gray-600);
+  color: var(--cw-color-text-muted);
   margin-block: var(--cw-space-1) 0;
 }
 
@@ -27,7 +32,7 @@
 }
 
 .wb-section {
-  border-top: 1px solid var(--cw-gray-100);
+  border-top: var(--cw-border-width-default) solid var(--cw-color-border-subtle);
   padding-block: var(--cw-space-5);
 }
 
@@ -41,7 +46,7 @@
 }
 
 .wb-note {
-  color: var(--cw-gray-600);
+  color: var(--cw-color-text-muted);
   font-size: var(--cw-font-size-sm);
 }
 
@@ -63,7 +68,7 @@
 
 .engagement-row {
   align-items: center;
-  border: 1px solid var(--cw-gray-200);
+  border: var(--cw-border-width-default) solid var(--cw-color-border-subtle);
   border-radius: var(--cw-radius-md);
   display: flex;
   gap: var(--cw-space-3);
@@ -82,18 +87,18 @@
 }
 
 .engagement-client {
-  color: var(--cw-gray-600);
+  color: var(--cw-color-text-muted);
   font-size: var(--cw-font-size-sm);
 }
 
 .engagement-pending {
-  color: var(--cw-gray-600);
+  color: var(--cw-color-text-muted);
   font-size: var(--cw-font-size-sm);
   white-space: nowrap;
 }
 
 .wb-placeholder {
-  border: 1px dashed var(--cw-gray-300);
+  border: var(--cw-border-width-default) dashed var(--cw-color-border-control);
   border-radius: var(--cw-radius-md);
   padding: var(--cw-space-4);
 }
@@ -110,7 +115,7 @@
 }
 
 .wb-state dt {
-  color: var(--cw-gray-600);
+  color: var(--cw-color-text-muted);
   font-size: var(--cw-font-size-sm);
 }
 

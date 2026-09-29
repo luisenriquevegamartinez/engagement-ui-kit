@@ -1,10 +1,109 @@
 /**
  * Semantic tokens: what the primitives are *for*.
  *
- * This layer is yours. It is the seam between the raw palette in
- * `_primitives.scss` and the components that consume it, and it is what makes
- * a second theme possible without touching component styles.
+ * Kit components consume only these tokens. A theme is a block that re-declares
+ * them; component styles never change to add a theme.
  *
- * Nothing here is prescribed: the roles you define, how you name them, and how
- * a theme overrides them are part of what the exercise is asking you to design.
+ * Naming: `--cw-<category>-<role>[-<variant>]`. Every name carries a role word
+ * (bg, text, border, status, control...) so it can never be mistaken for, or
+ * collide with, a primitive.
+ *
+ * Rules that keep themes cheap and safe:
+ *
+ * 1. A semantic token references primitives only, never another semantic
+ *    token. Custom properties resolve `var()` where they are declared and are
+ *    inherited as computed values. A theme applied to a subtree (a
+ *    `[data-cw-theme]` island, e.g. a federated remote) would therefore not
+ *    propagate through an alias declared on `:root`.
+ * 2. A theme re-declares every token it changes, in full.
+ * 3. Values with no primitive category (border widths, z-index) are raw values
+ *    here rather than new primitives.
  */
+
+@mixin default-theme {
+  color-scheme: light;
+
+  /* Backgrounds */
+  --cw-color-bg-canvas: var(--cw-gray-0);
+  --cw-color-bg-surface: var(--cw-gray-0);
+  --cw-color-bg-subtle: var(--cw-gray-50);
+  --cw-color-bg-raised: var(--cw-gray-0);
+  --cw-color-bg-hover: var(--cw-gray-50);
+  --cw-color-bg-active: var(--cw-blue-50);
+  --cw-color-bg-disabled: var(--cw-gray-100);
+
+  /* Text */
+  --cw-color-text-default: var(--cw-gray-900);
+  --cw-color-text-muted: var(--cw-gray-600);
+  --cw-color-text-disabled: var(--cw-gray-500);
+  --cw-color-text-accent: var(--cw-blue-700);
+
+  /* Borders and focus */
+  --cw-color-border-subtle: var(--cw-gray-200);
+  --cw-color-border-control: var(--cw-gray-500);
+  --cw-color-border-active: var(--cw-blue-600);
+  --cw-color-focus-ring: var(--cw-blue-600);
+
+  /* Status: text >= 4.5:1 on its bg; indicator is decorative */
+  --cw-color-status-neutral-bg: var(--cw-gray-50);
+  --cw-color-status-neutral-text: var(--cw-gray-700);
+  --cw-color-status-neutral-border: var(--cw-gray-200);
+  --cw-color-status-neutral-indicator: var(--cw-gray-500);
+
+  --cw-color-status-info-bg: var(--cw-blue-50);
+  --cw-color-status-info-text: var(--cw-blue-700);
+  --cw-color-status-info-border: var(--cw-blue-100);
+  --cw-color-status-info-indicator: var(--cw-blue-600);
+
+  --cw-color-status-success-bg: var(--cw-green-50);
+  --cw-color-status-success-text: var(--cw-green-700);
+  --cw-color-status-success-border: var(--cw-green-100);
+  --cw-color-status-success-indicator: var(--cw-green-600);
+
+  /* amber-700 on amber-50 is 4.4:1, so warning text steps down to 800 */
+  --cw-color-status-warning-bg: var(--cw-amber-50);
+  --cw-color-status-warning-text: var(--cw-amber-800);
+  --cw-color-status-warning-border: var(--cw-amber-100);
+  --cw-color-status-warning-indicator: var(--cw-amber-600);
+
+  --cw-color-status-danger-bg: var(--cw-red-50);
+  --cw-color-status-danger-text: var(--cw-red-700);
+  --cw-color-status-danger-border: var(--cw-red-100);
+  --cw-color-status-danger-indicator: var(--cw-red-600);
+
+  /* Typography */
+  --cw-font-family-base: var(--cw-font-sans);
+  --cw-font-size-body: var(--cw-font-size-md);
+  --cw-font-size-label: var(--cw-font-size-sm);
+  --cw-font-size-caption: var(--cw-font-size-xs);
+  --cw-font-weight-body: var(--cw-font-weight-regular);
+  --cw-font-weight-label: var(--cw-font-weight-medium);
+  --cw-font-weight-strong: var(--cw-font-weight-semibold);
+  --cw-line-height-body: var(--cw-line-height-normal);
+  --cw-line-height-compact: var(--cw-line-height-tight);
+
+  /* Spacing */
+  --cw-space-control-block: var(--cw-space-2);
+  --cw-space-control-inline: var(--cw-space-3);
+  --cw-space-gap-xs: var(--cw-space-1);
+  --cw-space-gap-sm: var(--cw-space-2);
+
+  /* Shape and elevation */
+  --cw-radius-control: var(--cw-radius-md);
+  --cw-radius-round: var(--cw-radius-pill);
+  --cw-shadow-popup: var(--cw-shadow-md);
+  --cw-border-width-default: 1px;
+  --cw-border-width-emphasis: 2px;
+  --cw-focus-ring-width: 2px;
+  --cw-focus-ring-offset: 2px;
+  --cw-z-popup: 1000;
+
+  /* Motion */
+  --cw-duration-feedback: var(--cw-duration-fast);
+  --cw-easing-feedback: var(--cw-easing-standard);
+}
+
+:root,
+[data-cw-theme='default'] {
+  @include default-theme;
+}
